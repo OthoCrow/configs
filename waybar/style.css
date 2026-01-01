@@ -317,3 +317,8 @@ label:focus {
 #privacy-item.audio-out {
     background-color: #0069d4;
 }
+
+#mpris {
+    background-color: #2d3436;
+    min-width: 30px;
+}
