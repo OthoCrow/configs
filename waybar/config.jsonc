@@ -16,9 +16,10 @@
         "hyprland/workspaces"
     ],
     "modules-right": [
-        // "mpd",
+        "mpris",
         "idle_inhibitor",
-        "wireplumber",
+        "wireplumber#sink",
+        "wireplumber#source",
         // "pulseaudio",
         "backlight",
         // "network",
@@ -105,6 +106,7 @@
     },
     "clock": {
         // "timezone": "America/New_York",
+        "format": "{:%H:%M\n%d/%m}",
         "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%d/%m/%Y}"
     },
@@ -136,12 +138,19 @@
         },
         "format": "{capacity}% {icon}",
         "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
+	    "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
+        "menu": "on-click-right",
+        "menu-file": "$HOME/.config/waybar/power_profiles.xml", // Menu file in resources folder
+        "menu-actions": {
+            "power-saver": "powerprofilesctl set power-saver",
+            "balanced": "powerprofilesctl set balanced",
+            "performance": "powerprofilesctl set performance"
+        }
     },
 
     "power-profiles-daemon": {
@@ -195,14 +204,15 @@
             "portable": "",
             "car": "",
             "default": ["", "", ""]
-        }
+        },
+	"on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     },
     "wireplumber#source": {
         "node-type": "Audio/Source",
         "format": "{volume}% ",
         "format-muted": "",
         "scroll-step": "5",
-        "on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        "on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
     },
     "custom/media": {
         "format": "{icon} {text}",
@@ -218,14 +228,25 @@
     },
     "custom/power": {
         "format" : "⏻",
-		"tooltip": false,
-		"menu": "on-click",
-		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-		"menu-actions": {
-			"shutdown": "shutdown",
-			"reboot": "reboot",
-			"suspend": "systemctl suspend",
-			"hibernate": "systemctl hibernate"
-		}
+	"tooltip": false,
+	"menu": "on-click",
+	"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+	"menu-actions": {
+		"shutdown": "shutdown",
+		"reboot": "reboot",
+		"suspend": "systemctl suspend",
+		"hibernate": "systemctl hibernate"
+	}
+    },
+    "mpris": {
+	"format": " {player_icon} ",
+	"format-paused": " {status_icon} ",
+	"player-icons": {
+		"default": "\uf04c",
+		"mpv": "🎵"
+	},
+	"status-icons": {
+		"paused": "\uf04b"
+	}
     }
 }
