@@ -1,5 +1,5 @@
 configuration {
-  modes: "drun,calc,run,ssh";
+  modes: "run,drun,calc,ssh";
 	font: "mono 12";
 //	location: 0;
 //	yoffset: 0;
@@ -169,4 +169,10 @@ configuration {
 
 //@theme "/usr/share/rofi/themes/arthur.rasi"
 
-@theme "/usr/share/rofi/themes/android_notification.rasi"
+//@theme "/usr/share/rofi/themes/android_notification.rasi"
+
+//@theme "/home/othocrow/.local/share/rofi/themes/spotlight-dark.rasi"
+
+//@theme "/home/othocrow/.local/share/rofi/themes/simple-tokyonight.rasi"
+
+@theme "/home/othocrow/.local/share/rofi/themes/spotlight-dark.rasi"
