@@ -17,11 +17,23 @@ o.syntax = "on"
 
 o.wildmode = "longest,list"
 
+vim.keymap.set({'n', 'v', 'i'}, '<MiddleMouse>', '<Nop>', { silent = true })
+vim.keymap.set({'n', 'v', 'i'}, '<2-MiddleMouse>', '<Nop>', { silent = true })
+vim.keymap.set({'n', 'v', 'i'}, '<3-MiddleMouse>', '<Nop>', { silent = true })
+vim.keymap.set({'n', 'v', 'i'}, '<4-MiddleMouse>', '<Nop>', { silent = true })
+
+
 -- If you want to ensure filetype plugins and indent are enabled:
 vim.cmd([[
   filetype plugin indent on
 ]])
 
+-- Quickshell LSP
+vim.lsp.config.qmlls = {
+  cmd = { '/usr/lib/qt6/bin/qmlls' },
+  filetypes = { 'qml' },
+}
+vim.lsp.enable('qmlls')
 
 -----------------------------
 ----------LAZY.NVIM----------
@@ -86,3 +98,5 @@ require("lazy").setup({
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
+
+

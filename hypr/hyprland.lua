@@ -30,7 +30,7 @@ hl.monitor({
 -- Set programs that you use
 local terminal    = "foot"
 local fileManager = "thunar"
-local launcher    = "walker"
+local launcher    = "nc -U /run/user/1000/walker/walker.sock"
 local cpicker     = "hyprpicker"
 local lock        = "hyprlock"
 local screencopy = 'grim -g "$(slurp -d)" - | wl-copy'
@@ -58,13 +58,11 @@ hl.on("hyprland.start", function ()
 
 	hl.exec_cmd("/usr/lib/xdg-desktop-portal-hyprland >/dev/null 2>&1 &")
 	hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
-end)
 
-
--- Manages XDG_AUTOSTART
-hl.on("hyprland.start", function()
+	-- Manages XDG_AUTOSTART
     hl.exec_cmd("systemctl --user start hyprland-session.target")
 end)
+
 
 hl.on("hyprland.shutdown", function()
     os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
@@ -72,6 +70,7 @@ hl.on("hyprland.shutdown", function()
     -- you might also want to kill troublesome/crashing non-systemd background services here:
     -- os.execute("pkill wallpaperthing; systemctl --user stop hyprland-session.target && sleep 0.1")
 end)
+
 
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
@@ -114,9 +113,9 @@ hl.permission("/usr/bin/hyprpicker", "screencopy", "allow")
 hl.config({
     general = {
         gaps_in  = 2,
-        gaps_out = 3,
+        gaps_out = 8,
 
-        border_size = 2,
+        border_size = 3,
 
         col = {
             active_border   = "rgba(33ccffee)",
@@ -133,12 +132,12 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 3,
+        rounding       = 10,
         rounding_power = 3,
 
         -- Change transparency of focused and unfocused windows
         active_opacity   = 1.0,
-        inactive_opacity = 1.0,
+        inactive_opacity = 0.95,
 
         shadow = {
             enabled      = false,
@@ -233,9 +232,13 @@ hl.config({
 
 hl.config({
     misc = {
-        force_default_wallpaper = 0,    -- Set to 0 or 1 to disable the anime mascot wallpapers
+        force_default_wallpaper = 0,    -- Set to 0 or 1 to disable the anime mascot wallpapers (-1 to enable)
         disable_hyprland_logo   = true, -- If true disables the random hyprland logo / anime girl background. :(
+		middle_click_paste		= false
     },
+	ecosystem = {
+		no_donation_nag = true
+	}
 })
 
 
@@ -253,11 +256,14 @@ hl.config({
 
         follow_mouse = 1,
 
-        sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
+        sensitivity = 0.25, -- -1.0 - 1.0, 0 means no modification.
 
         touchpad = {
             natural_scroll = true,
-			disable_while_typing = false
+			disable_while_typing = dwt,
+
+			tap_and_drag = false,
+			drag_lock = false
         },
     },
 })
@@ -274,6 +280,33 @@ hl.device({
     name        = "epic-mouse-v1",
     sensitivity = -0.5,
 })
+
+
+--- Toggle Palm Rejection ---
+local dwt = true
+
+local function apply_dwt()
+    hl.config({
+        input = {
+            touchpad = {
+                disable_while_typing = dwt
+            },
+        },
+    })
+end
+
+local function dwt_toggle()
+    dwt = not dwt
+    apply_dwt()
+    if dwt
+        then hl.dispatch(hl.dsp.exec_cmd("notify-send 'Palm Rejection ON'"))
+    else
+        hl.dispatch(hl.dsp.exec_cmd("notify-send 'Palm Rejection OFF'"))
+    end
+end
+
+
+
 
 
 ---------------------
@@ -294,13 +327,14 @@ hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
 --Custom binds (check)
-hl.bind(mainMod .. " + I", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + I", hl.dsp.exec_cmd(cpicker))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd(lock))
 hl.bind( "ALT + space", hl.dsp.exec_cmd(launcher))
 hl.bind( "ALT + tab", hl.dsp.exec_cmd("snappy-switcher next --mod alt"))
 hl.bind( "ALT + SHIFT + tab", hl.dsp.exec_cmd("snappy-switcher prev --mod alt"))
 hl.bind("Print", hl.dsp.exec_cmd(screencopy))
-hl.bind("SUPER + Print", hl.dsp.exec_cmd(screensave))
+hl.bind(mainMod .. "+ Print", hl.dsp.exec_cmd(screensave))
+hl.bind(mainMod .. " + D",dwt_toggle)
 
 
 -- Move focus with mainMod + arrow keys
@@ -402,9 +436,9 @@ hl.window_rule({
     float = true,
 })
 
--- Code open-file windowrile
+-- electron file picker windowrile
 hl.window_rule({
-	name = "code-open-file",
+	name = "filepicker",
 	match = { class = "^(electron)$"},
 	float = true,
 	size = {906, 673}

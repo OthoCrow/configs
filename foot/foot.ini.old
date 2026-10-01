@@ -8,14 +8,21 @@
 # title=foot
 # locked-title=no
 
+
 font=JetBrainsMono Nerd Font Mono:size=11
 font-bold=JetBrainsMono Nerd Font Mono:style=Bold:size=11
 font-italic=JetBrainsMono Nerd Font Mono:style=Italic:size=11
 font-bold-italic=JetBrainsMono Nerd Font Mono:style=Bold Italic:size=11
+
+
+# font=monospace:size=10
+# font-bold=<bold variant of regular font>
+# font-italic=<italic variant of regular font>
+# font-bold-italic=<bold+italic variant of regular font>
 # font-size-adjustment=0.5
 # line-height=<font metrics>
 # letter-spacing=0
-# horizontal-letter-offset=0
+# horizontal-letter-offset=5
 # vertical-letter-offset=0
 # underline-offset=<font metrics>
 # underline-thickness=<font underline thickness>
@@ -24,11 +31,11 @@ font-bold-italic=JetBrainsMono Nerd Font Mono:style=Bold Italic:size=11
 # dpi-aware=no
 # gamma-correct-blending=no
 
-# initial-color-theme=dark
+# initial-color-theme=1
 # initial-window-size-pixels=700x500  # Or,
 # initial-window-size-chars=<COLSxROWS>
 # initial-window-mode=windowed
-# pad=0x0 center-when-maximized-and-fullscreen
+pad=0x0
 # resize-by-cells=yes
 # resize-keep-grid=yes
 # resize-delay-ms=100
@@ -57,13 +64,8 @@ font-bold-italic=JetBrainsMono Nerd Font Mono:style=Bold Italic:size=11
 # command-focused=no
 
 [desktop-notifications]
-# The default:
 # command=notify-send --wait --app-name ${app-id} --icon ${app-id} --category ${category} --urgency ${urgency} --expire-time ${expire-time} --hint STRING:image-path:${icon} --hint BOOLEAN:suppress-sound:${muted} --hint STRING:sound-name:${sound-name} --replace-id ${replace-id} ${action-argument} --print-id -- ${title} ${body}
 # command-action-argument=--action ${action-name}=${action-label}
-
-# Or, using fyi:
-# command=fyi --wait --app-name ${app-id} --icon ${app-id} --category ${category} --urgency ${urgency} --expire-time ${expire-time} --hint string:image-path:${icon} --hint boolean:suppress-sound:${muted} --hint string:sound-name:${sound-name} --replaces ${replace-id} ${action-argument} --print-token -- ${title} ${body}
-# command-action-argument=--action ${action-name}:${action-label}
 # close=""
 # inhibit-when-focused=yes
 
@@ -77,9 +79,8 @@ font-bold-italic=JetBrainsMono Nerd Font Mono:style=Bold Italic:size=11
 [url]
 # launch=xdg-open ${url}
 # label-letters=sadfjklewcmpgh
-# style=dotted  (none|single|double|curly|dotted|dashed)
 # osc8-underline=url-mode
-# regex=(((https?://|mailto:|ftp://|file:|ssh:|ssh://|git://|tel:|magnet:|ipfs://|ipns://|gemini://|gopher://|news:)|www\.)([0-9a-zA-Z:/?#@!$&*+,;=.~_%^'\-]+|\([]\["0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]+\)|\[[\(\)"0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]+\]|"[]\[\(\)0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]+"|'[]\[\(\)0-9a-zA-Z:/?#@!$&*+,;=.~_%^\-]+')+([0-9a-zA-Z/#@$&*+=~_%^\-]|\([]\["0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]+\)|\[[\(\)"0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]+\]|"[]\[\(\)0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]+"|'[]\[\(\)0-9a-zA-Z:/?#@!$&*+,;=.~_%^\-]+'))
+# regex=(((https?://|mailto:|ftp://|file:|ssh:|ssh://|git://|tel:|magnet:|ipfs://|ipns://|gemini://|gopher://|news:)|www\.)([0-9a-zA-Z:/?#@!$&*+,;=.~_%^\-]+|\([]\["0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]*\)|\[[\(\)"0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]*\]|"[]\[\(\)0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]*"|'[]\[\(\)0-9a-zA-Z:/?#@!$&*+,;=.~_%^\-]*')+([0-9a-zA-Z/#@$&*+=~_%^\-]|\([]\["0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]*\)|\[[\(\)"0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]*\]|"[]\[\(\)0-9a-zA-Z:/?#@!$&'*+,;=.~_%^\-]*"|'[]\[\(\)0-9a-zA-Z:/?#@!$&*+,;=.~_%^\-]*'))
 
 # You can define your own regex's, by adding a section called
 # 'regex:<ID>' with a 'regex' and 'launch' key. These can then be tied
@@ -108,7 +109,7 @@ font-bold-italic=JetBrainsMono Nerd Font Mono:style=Bold Italic:size=11
 # long-press-delay=400
 
 [colors-dark]
-# alpha=1.0
+alpha=1
 # alpha-mode=default # Can be `default`, `matching` or `all`
 background=14161b
 # foreground=ffffff
@@ -175,7 +176,7 @@ background=14161b
 # search-box-match=<regular0> <regular3>     # black-on-yellow
 # urls=<regular3>
 
-[colors-light]
+[colors2]
 # Alternative color theme, see man page foot.ini(5)
 # Same builtin defaults as [color], except for:
 # dim-blend-towards=white
@@ -225,8 +226,8 @@ background=14161b
 # prompt-prev=Control+Shift+z
 # prompt-next=Control+Shift+x
 # unicode-input=Control+Shift+u
-# color-theme-switch-dark=none
-# color-theme-switch-light=none
+# color-theme-switch-1=none
+# color-theme-switch-2=none
 # color-theme-toggle=none
 # noop=none
 # quit=none
@@ -281,7 +282,7 @@ background=14161b
 # font-increase=Control+BTN_WHEEL_BACK
 # font-decrease=Control+BTN_WHEEL_FORWARD
 # selection-override-modifiers=Shift
-primary-paste=none
+# primary-paste=BTN_MIDDLE
 # select-begin=BTN_LEFT
 # select-begin-block=Control+BTN_LEFT
 # select-extend=BTN_RIGHT
